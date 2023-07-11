@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>To-Do List</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap");
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        transition: 0.5s;
+        animation: change 10s ease-in-out infinite;
+      }
+
+      @keyframes change {
+        0% {
+          background-position: 0 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0 50%;
+        }
+      }
+
+      .container {
+        max-width: 400px;
+        padding: 80px;
+        background-color: #fff;
+        border-radius: 50px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      h1 {
+        text-align: center;
+        color: #000000;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: none;
+        border-bottom: 3px solid #00ff1e;
+        outline: none;
+        background-color: transparent;
+        color: #030105;
+        font-size: 16px;
+      }
+
+      input[type="text"]::placeholder {
+        color: #aaa;
+      }
+
+      .task-list {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .task-list li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        color: #4a148c;
+      }
+
+      .task-list li .task-text {
+        flex: 1;
+        margin-right: 10px;
+      }
+
+      .task-list li button {
+        background-color: #000000;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .task-list li button:hover {
+        background-color: #ff0202;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>To-Do List</h1>
+      <br />
+      <input type="text" id="taskInput" placeholder="Enter a task" />
+      <ul class="task-list" id="taskList"></ul>
+    </div>
+
+    <script>
+      const taskInput = document.getElementById("taskInput");
+      const taskList = document.getElementById("taskList");
+
+      taskInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          addTask();
+        }
+      });
+
+      function addTask() {
+        const task = taskInput.value.trim();
+
+        if (task !== "") {
+          const li = document.createElement("li");
+          li.innerHTML = `
+          <span class="task-text">${task}</span>
+          <button class="delete-button">Delete</button>
+        `;
+
+          const deleteButton = li.querySelector(".delete-button");
+          deleteButton.addEventListener("click", function () {
+            li.remove();
+          });
+
+          taskList.appendChild(li);
+          taskInput.value = "";
+        }
+      }
+    </script>
+  </body>
+</html>
